@@ -1,5 +1,7 @@
-
+const mssql = require('mssql');
+const config = require('../database/database-config');
 const express = require('express');
+const { request } = require('express');
 
 class BookController {
     constructor() {
@@ -8,6 +10,28 @@ class BookController {
         this.router.get('/', (request, response) => this.getAllBooks(request, response) );
         this.router.get('/:id', (request, response) => this.getBook(request, response) );
         this.router.get('/numerous/3', (request, response) => this.getNumerousBooks(request, response) );
+
+        // CONNECTION TO DATABASE HERE
+        this.dbPool = new mssql.ConnectionPool(config.mssqlConnectionConfig);
+        this.dbConnection = this.dbPool.connect();
+
+        this.dbConnection.then((connection) => {
+            console.log('connected to the database')
+            return connection;
+        })
+        .then((connection) => {
+            let connectionRequest = connection.request();
+            let queryString = "SELECT * FROM books;";
+            console.log(connectionRequest.query(queryString));
+            return connectionRequest.query(queryString);
+        })
+        .then((result) => {
+            let books = result.recordsets[0];
+            console.log(books);
+            return books;
+        }).catch(
+            (error) => console.log('Failed to connect to the database. Error: ', error)
+        );
     }
 
     getAllBooks(request, response) {
