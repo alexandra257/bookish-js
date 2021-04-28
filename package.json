@@ -1,0 +1,22 @@
+{
+  "name": "bookish-js-supplement",
+  "version": "1.0.0",
+  "description": "supplementary bookish example code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CorndelWithSoftwire/bookish-js-supplement.git"
+  },
+  "author": "Dave Artus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CorndelWithSoftwire/bookish-js-supplement/issues"
+  },
+  "homepage": "https://github.com/CorndelWithSoftwire/bookish-js-supplement#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
